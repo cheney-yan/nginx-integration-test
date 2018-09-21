@@ -1,0 +1,42 @@
+# - input:
+#     domain: stage.commercialrealestate.com.au
+#     path: "/" # default
+#     schema: http # default
+#     method: POST # default
+#     headers: {} # default
+#     cookies: { 'next-home-page' : 'something'} # default
+#     params: {} # default
+#   output:
+#     - s-cre-rest-svc.stealth.ra3.dynamic.domain.com.au
+#   id: better unique
+#   comment: some meaningful comment for this test
+
+---
+- input:
+    domain: stage.commercialrealestate.com.au
+  output:
+    - s-cre-rest-svc.stealth.ra3.dynamic.domain.com.au
+  id: test-A
+  comment: Get / without cookie should go to old
+- input:
+    domain: stage.commercialrealestate.com.au
+    method: POST
+  output:
+    - s-cre-rest-svc.stealth.ra3.dynamic.domain.com.au
+  id: test-B
+  comment: post / without cookie should go to old
+- input:
+    domain: stage.commercialrealestate.com.au
+    cookies: { 'next-home-page' : 'something'} 
+  output:
+    - s-cre-rest-svc.stealth.ra3.dynamic.domain.com.au
+  id: test-C
+  comment: Get with cookie should go to old
+- input:
+    domain: stage.commercialrealestate.com.au
+    method: POST 
+    cookies: { 'next-home-page' : 'something'} 
+  output:
+    - stage-bf.commercialrealestate.com.au
+  id: test-D
+  comment: Post with cookie should go to new
